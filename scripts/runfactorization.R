@@ -226,7 +226,7 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
     write.table(omics[[j]],paste(temp.folder,"/omics",j,".txt",sep=""),sep=" ",col.names=T, row.names=T)
   }
     files<-paste(files,paste("omics",j,".txt",sep=""),sep=" ")
-  system(paste('python ./scripts/scikit_fusion.py',temp.folder,temp.folder,num.factors,files,sep=' '))
+  system(paste('python ./scikit_fusion.py',temp.folder,temp.folder,num.factors,files,sep=' '))
   factors_scikit<-as.matrix(read.table(paste(temp.folder,"signals.txt",sep=""),sep="\t",header=F))
   colnames(factors_scikit)<-1:num.factors
   rownames(factors_scikit)<-colnames(omics[[1]])
