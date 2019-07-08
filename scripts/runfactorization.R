@@ -78,6 +78,97 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   t<-t+1
   method<-c(method,"RGCCA")
   
+  ###MCIA
+  factorizations_mcia<-mcia(omics_pos, cia.nf = num.factors)
+  factors_mcia<-as.matrix(factorizations_mcia$mcoa$SynVar)
+  metagenes_mcia<-list()
+  for(j in 1:length(omics)){
+    metagenes_mcia[[j]]<-as.matrix(factorizations_mcia$mcoa$axis[1:dim(omics[[j]])[1],])
+    rownames(metagenes_mcia[[j]])<-rownames(omics[[j]])
+    colnames(metagenes_mcia[[j]])<-1:num.factors
+  }
+  factorizations[[t]]<-list(factors_mcia,metagenes_mcia)
+  t<-t+1
+  method<-c(method,"MCIA")
+  
+  ###MOFA
+  MOFAobject <- createMOFAobject(omics)
+  DataOptions <- getDefaultDataOptions()
+  ModelOptions <- getDefaultModelOptions(MOFAobject)
+  ModelOptions$numFactors <- num.factors
+  TrainOptions <- getDefaultTrainOptions()
+  
+  MOFAobject <- prepareMOFA(
+    MOFAobject,
+    DataOptions = DataOptions,
+    ModelOptions = ModelOptions,
+    TrainOptions = TrainOptions
+  )
+  MOFAobject <- runMOFA(MOFAobject)
+  metagenes_mofa <- getWeights(
+    MOFAobject
+  )
+  
+  factors_mofa <- getFactors(
+    MOFAobject
+  )
+  factorizations[[t]]<-list(factors_mofa,metagenes_mofa)
+  t<-t+1
+  method<-c(method,"MOFA")
+  
+  # # ###MSFA
+  # if(filtering=="none" ||  filtering=="stringent"){
+  # start_value <- start_msfa(X_s = omics_pos, k = num.factors, j_s = c(num.factors,num.factors,num.factors))
+  # mle <-  ecm_msfa(omics_pos, start_value, trace = FALSE)
+  # factors_msfa<-as.matrix(mle$Phi)
+  # metagenes_msfa<-list()
+  # for(j in 1:length(omics)){
+  #    metagenes_msfa[[j]]<-t(omics[[j]]) %*% solve(cor(t(omics[[j]]))) %*% factors_msfa
+  #    rownames(metagenes_msfa[[j]])<-rownames(omics[[j]])
+  #    colnames(metagenes_msfa[[j]])<-1:num.factors
+  #  }
+  #  factorizations[[t]]<-list(factors_msfa,metagenes_msfa)
+  #  t<-t+1
+  # method<-c(method,"MSFA")
+  # }
+  
+  ###iCluster
+  factorizations_icluster<-iCluster2(lapply(omics, function(x) t(x)), k=num.factors+1)
+  factors_icluster<-as.matrix(t(factorizations_icluster$expZ))
+  metagenes_icluster<-list()
+  for(j in 1:length(omics)){
+    metagenes_icluster[[j]]<-as.matrix(factorizations_icluster$W[1:dim(omics[[j]])[1],])
+    rownames(metagenes_icluster[[j]])<-rownames(omics[[j]])
+    colnames(metagenes_icluster[[j]])<-1:num.factors
+  }
+  factorizations[[t]]<-list(factors_icluster,metagenes_icluster)
+  t<-t+1
+  method<-c(method,"iCluster")
+  
+  ###intNMF
+  omics_pos<-list()
+  for(j in 1:length(omics)){
+    if(min(omics[[j]])<0){
+      omics_pos[[j]]<-omics[[j]]+abs(min(omics[[j]]))
+    }else{
+      omics_pos[[j]]<-omics[[j]]
+    }
+    omics_pos[[j]]<-omics_pos[[j]]/max(omics_pos[[j]])
+  }
+  factorizations_intnmf<-nmf.mnnals(dat=lapply(omics_pos, function(x) t(x)), k=num.factors)
+  factors_intNMF<-as.matrix(factorizations_intnmf$W)
+  colnames(factors_intNMF)<-1:num.factors
+  metagenes_intNMF<-list()
+  for(j in 1:length(omics)){
+    metagenes_intNMF[[j]]<-t(factorizations_intnmf$H[[j]]) 
+    rownames(metagenes_intNMF[[j]])<-rownames(omics[[j]])
+    colnames(metagenes_intNMF[[j]])<-1:num.factors
+  }
+  factorizations[[t]]<-list(factors_intNMF,metagenes_intNMF)
+  t<-t+1
+  method<-c(method,"intNMF")
+  
+  
   ### JIVE
   factorizations_jive<-jive(omics, rankJ=num.factors, rankA = rep(num.factors, length(omics)), method = "given", conv = "default", maxiter = 100, showProgress=FALSE)
   rankJV <- factorizations_jive$rankJ;
@@ -103,80 +194,14 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   t<-t+1
   method<-c(method,"JIVE")
   
-  ###intNMF
-  omics_pos<-list()
-  for(j in 1:length(omics)){
-    if(min(omics[[j]])<0){
-      omics_pos[[j]]<-omics[[j]]+abs(min(omics[[j]]))
-    }else{
-      omics_pos[[j]]<-omics[[j]]
-    }
-    omics_pos[[j]]<-omics_pos[[j]]/max(omics_pos[[j]])
-  }
-  factorizations_intnmf<-nmf.mnnals(dat=lapply(omics_pos, function(x) t(x)), k=num.factors)
-  factors_intNMF<-as.matrix(factorizations_intnmf$W)
-  colnames(factors_intNMF)<-1:num.factors
-  metagenes_intNMF<-list()
-  for(j in 1:length(omics)){
-    metagenes_intNMF[[j]]<-t(factorizations_intnmf$H[[j]]) 
-    rownames(metagenes_intNMF[[j]])<-rownames(omics[[j]])
-    colnames(metagenes_intNMF[[j]])<-1:num.factors
-  }
-  factorizations[[t]]<-list(factors_intNMF,metagenes_intNMF)
-  t<-t+1
-  method<-c(method,"intNMF")
-  
-  ###MCIA
-  factorizations_mcia<-mcia(omics_pos, cia.nf = num.factors)
-  factors_mcia<-as.matrix(factorizations_mcia$mcoa$SynVar)
-  metagenes_mcia<-list()
-  for(j in 1:length(omics)){
-    metagenes_mcia[[j]]<-as.matrix(factorizations_mcia$mcoa$axis[1:dim(omics[[j]])[1],])
-    rownames(metagenes_mcia[[j]])<-rownames(omics[[j]])
-    colnames(metagenes_mcia[[j]])<-1:num.factors
-  }
-  factorizations[[t]]<-list(factors_mcia,metagenes_mcia)
-  t<-t+1
-  method<-c(method,"MCIA")
-  
-  # ###MSFA
-  # start_value <- start_msfa(X_s = omics_pos, k = num.factors, j_s = c(num.factors,num.factors,num.factors))
-  # mle <-  ecm_msfa(omics_pos, start_value, trace = FALSE)
-  # factors_msfa<-as.matrix(mle$Phi)
-  # metagenes_msfa<-list()
-  # for(j in 1:length(omics)){
-  #   metagenes_msfa[[j]]<-t(omics[[j]]) %*% solve(cor(t(omics[[j]]))) %*% factors_msfa
-  #   rownames(metagenes_msfa[[j]])<-rownames(omics[[j]])
-  #   colnames(metagenes_msfa[[j]])<-1:num.factors
-  # }
-  # factorizations[[t]]<-list(factors_msfa,metagenes_msfa)
-  # t<-t+1
-  #method<-c(method,"MSFA")
-  
-  ###MOFA
-  MOFAobject <- createMOFAobject(omics)
-  DataOptions <- getDefaultDataOptions()
-  ModelOptions <- getDefaultModelOptions(MOFAobject)
-  ModelOptions$numFactors <- num.factors
-  TrainOptions <- getDefaultTrainOptions()
 
-  MOFAobject <- prepareMOFA(
-    MOFAobject,
-    DataOptions = DataOptions,
-    ModelOptions = ModelOptions,
-    TrainOptions = TrainOptions
-  )
-  MOFAobject <- runMOFA(MOFAobject)
-  metagenes_mofa <- getWeights(
-    MOFAobject
-  )
   
-  factors_mofa <- getFactors(
-    MOFAobject
-  )
-  factorizations[[t]]<-list(factors_mofa,metagenes_mofa)
-  t<-t+1
-  method<-c(method,"MOFA")
+
+  
+
+
+  
+
   
   ###tICA
     omics_tensor<-list()
@@ -205,27 +230,16 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
 
   
 
-  ###iCluster
-  factorizations_icluster<-iCluster2(lapply(omics, function(x) t(x)), k=num.factors+1)
-  factors_icluster<-as.matrix(t(factorizations_icluster$expZ))
-  metagenes_icluster<-list()
-  for(j in 1:length(omics)){
-    metagenes_icluster[[j]]<-as.matrix(factorizations_icluster$W[1:dim(omics[[j]])[1],])
-    rownames(metagenes_icluster[[j]])<-rownames(omics[[j]])
-    colnames(metagenes_icluster[[j]])<-1:num.factors
-  }
-  factorizations[[t]]<-list(factors_icluster,metagenes_icluster)
-  t<-t+1
-  method<-c(method,"iCluster")
+
   
   # ###scikit-fusion
   system("mkdir ../data/scikit/")
-  temp.folder<-"../data/scikit/"
+  temp.folder<-'../data/scikit/'
   files<-""
   for(j in 1:length(omics)){
     write.table(omics[[j]],paste(temp.folder,"/omics",j,".txt",sep=""),sep=" ",col.names=T, row.names=T)
     files<-paste(files,paste("omics",j,".txt",sep=""),sep=" ")
-  } 
+  }
   system(paste("python ./scikit_fusion.py", "'../data/scikit/'","'../data/scikit/'",num.factors,"' '",files,sep=" "))
   factors_scikit<-as.matrix(read.table(paste(temp.folder,"signals.txt",sep=""),sep="\t",header=F))
   colnames(factors_scikit)<-1:num.factors
@@ -243,7 +257,6 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   
   
   out<-list(factorizations=factorizations,method=method,icluster.clusters=as.matrix(factorizations_icluster$clusters),intNMF.clusters=as.matrix(factorizations_intnmf$clusters))
-  #out<-list(factorizations=factorizations,method=method,intNMF.clusters=as.matrix(factorizations_intnmf$clusters))
   
   return(out)
 }
