@@ -33,7 +33,6 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   omics <- list()
   for(i in 1:length(file.names)){
     omics[[i]]<-as.matrix(read.table(paste(folder,file.names[i],sep="/"),sep=sep,row.names=1,header=T))
-    
   }
   
   ####
@@ -79,6 +78,15 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   method<-c(method,"RGCCA")
   
   ###MCIA
+  omics_pos<-list()
+  for(j in 1:length(omics)){
+    if(min(omics[[j]])<0){
+      omics_pos[[j]]<-omics[[j]]+abs(min(omics[[j]]))
+    }else{
+      omics_pos[[j]]<-omics[[j]]
+    }
+    omics_pos[[j]]<-omics_pos[[j]]/max(omics_pos[[j]])
+  }
   factorizations_mcia<-mcia(omics_pos, cia.nf = num.factors)
   factors_mcia<-as.matrix(factorizations_mcia$mcoa$SynVar)
   metagenes_mcia<-list()
@@ -146,15 +154,6 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   method<-c(method,"iCluster")
   
   ###intNMF
-  omics_pos<-list()
-  for(j in 1:length(omics)){
-    if(min(omics[[j]])<0){
-      omics_pos[[j]]<-omics[[j]]+abs(min(omics[[j]]))
-    }else{
-      omics_pos[[j]]<-omics[[j]]
-    }
-    omics_pos[[j]]<-omics_pos[[j]]/max(omics_pos[[j]])
-  }
   factorizations_intnmf<-nmf.mnnals(dat=lapply(omics_pos, function(x) t(x)), k=num.factors)
   factors_intNMF<-as.matrix(factorizations_intnmf$W)
   colnames(factors_intNMF)<-1:num.factors
