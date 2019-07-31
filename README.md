@@ -1,8 +1,5 @@
 # A mix of multi-omics data
 
-
-## Datasets
-
 These notebooks are applied on 3 different datasets:
 
 * simulated data, which is generated on demand
@@ -13,3 +10,16 @@ These notebooks are applied on 3 different datasets:
   provide the pre-processed data on-demand.
 * annotations from MSigDB. A download script is provided to retrieve them.
 
+
+## Install the software environment
+
+* Install conda from https://docs.conda.io/en/latest/miniconda.html
+ * create a new environment: `conda create -n momix -c conda-forge -c lcantini momix`
+* download annotations and data with the two provided shell scripts (should work on linux and OSX):
+ `./download-annotations.sh` and `./download-data.sh`.
+
+
+## Run the notebooks
+
+* Enter the conda environment: `conda activate momix`.
+* Launch the notebook with `jupyter-notebook`.
