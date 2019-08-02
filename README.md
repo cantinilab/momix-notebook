@@ -14,7 +14,7 @@ These notebooks are applied on 3 different datasets:
 ## Install the software environment
 
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
- * create a new environment: `conda create -n momix -c conda-forge -c lcantini momix`
+ * create a new environment: `conda create -n momix -c conda-forge -c bioconda -c lcantini momix r-irkernel`
 * download annotations and data with the two provided shell scripts (should work on linux and OSX):
  `./download-annotations.sh` and `./download-data.sh`.
 
