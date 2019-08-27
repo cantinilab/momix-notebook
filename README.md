@@ -10,6 +10,8 @@ These notebooks are applied on 3 different datasets:
   provide the pre-processed data on-demand.
 * annotations from MSigDB. A download script is provided to retrieve them.
 
+The methods considered are JIVE, Scikit, tICA, intNMF, iCluster, MOFA, MCIA, RGCCA and MSFA. Please note that due to long running time, MSFA is not executed by default.
+
 
 ## Install the software environment
 
