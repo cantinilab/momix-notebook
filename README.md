@@ -6,8 +6,7 @@ These notebooks are applied on 3 different datasets:
 * bulk cancer data from TCGA, which was used for a previous study, available at
   http://acgt.cs.tau.ac.il/multi_omic_benchmark/download.html. A download script
   is provided to retrieve this dataset
-* single-cell data from Liu et al. (Nat Commun. 2019, 10(1):470). The authors
-  provide the pre-processed data on-demand.
+* single-cell data from Liu et al. (Nat Commun. 2019, 10(1):470) are available in `./data/` folder
 * annotations from MSigDB. A download script is provided to retrieve them.
 
 The methods considered are JIVE, Scikit, tICA, intNMF, iCluster, MOFA, MCIA, RGCCA and MSFA. Please note that due to long running time, MSFA is not executed by default.
