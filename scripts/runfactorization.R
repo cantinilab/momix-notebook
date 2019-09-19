@@ -129,6 +129,8 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
   # start_value <- start_msfa(X_s = omics_pos, k = num.factors, j_s = c(num.factors,num.factors,num.factors))
   # mle <-  ecm_msfa(omics_pos, start_value, trace = FALSE)
   # factors_msfa<-as.matrix(mle$Phi)
+  # rownames(factors)<-colnames(omics[[1]])
+  # colnames(factors)<-1:num.factors
   # metagenes_msfa<-list()
   # for(j in 1:length(omics)){
   #    metagenes_msfa[[j]]<-t(omics[[j]]) %*% solve(cor(t(omics[[j]]))) %*% factors_msfa
