@@ -1,16 +1,39 @@
-# A mix of multi-omics data
+# Multi-Omics MIX 
+## Benchmark of multi-omics joint Dimensionality Reduction (jDR) approaches in cancer study
 
-These notebooks are applied on 3 different datasets:
+We here extensively benchmark 9 representative jDR approaches in three contexts: 
+1. samples clustering from multi-omics simulated data
+2. ability to identify factors associated with survival or clinical annotations and metagenes associated with biological annotations (Reactome, GO, Hallmarks) in bulk multi-omics TCGA data from 10 cancer types.
+3. cells clustering based on scRNA-seq and scATAC-seq data from three cell lines.
 
-* simulated data, which is generated on demand
-* bulk cancer data from TCGA, which was used for a previous study, available at
+The benchmarked methods are:
+* iCluster 
+* Integrative NMF (intNMF) 
+* Joint and individual variation explained (JIVE) 
+* Multiple co-inertia analysis (MCIA) 
+* Multi-Omics Factor Analysis (MOFA)
+* Multi-Study Factor Analysis (MSFA) 
+* Regularized Generalized Canonical Correlation Analysis (RGCCA) 
+* matrix-tri-factorization (scikit-fusion) 
+* tensorial Independent Component Analysis (tICA)
+
+Please note that due to long running time, MSFA is not executed by default.
+
+Each of the three sub-benchmarks above corresponds to a differnet Jupyter notebook in this repositiory:
+1. 'Comparison in simulated data.ipynb'
+2. 'Comparison in cancer data.ipynb'
+3. 'Comparison in single-cell data.ipynb'
+
+## Input data
+
+The input data for the three notebooks are organized as follows: 
+1. Comparison in simulated data: data simulated as part of the notebook 
+2. Comparison in cancer data: bulk cancer data from TCGA, which was used for a previous study, available at
   http://acgt.cs.tau.ac.il/multi_omic_benchmark/download.html. A download script
   is provided to retrieve this dataset
-* single-cell data from Liu et al. (Nat Commun. 2019, 10(1):470) are available in `./data/` folder
-* annotations from MSigDB. A download script is provided to retrieve them.
+3. Comparison in single-cell data: single-cell data from Liu et al. (Nat Commun. 2019, 10(1):470) are available in `./data/` folder
 
-The methods considered are JIVE, Scikit, tICA, intNMF, iCluster, MOFA, MCIA, RGCCA and MSFA. Please note that due to long running time, MSFA is not executed by default.
-
+For running 2. also annotations from MSigDB are required and a download script is provided to retrieve them.
 
 ## Install the software environment
 
