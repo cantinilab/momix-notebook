@@ -1,21 +1,23 @@
 # Multi-Omics MIX 
 ## Benchmark of multi-omics joint Dimensionality Reduction (jDR) approaches in cancer study
 
+![image](https://drive.google.com/uc?export=view&id=1UUvKr6KqzVrXhY-MFsgn1julBf6cSQuL)
+
 We here extensively benchmark 9 representative jDR approaches in three contexts: 
 1. samples clustering from multi-omics simulated data
 2. ability to identify factors associated with survival or clinical annotations and metagenes associated with biological annotations (Reactome, GO, Hallmarks) in bulk multi-omics TCGA data from 10 cancer types.
 3. cells clustering based on scRNA-seq and scATAC-seq data from three cell lines.
 
 The benchmarked methods are:
-* iCluster 
-* Integrative NMF (intNMF) 
-* Joint and individual variation explained (JIVE) 
-* Multiple co-inertia analysis (MCIA) 
-* Multi-Omics Factor Analysis (MOFA)
-* Multi-Study Factor Analysis (MSFA) 
-* Regularized Generalized Canonical Correlation Analysis (RGCCA) 
-* matrix-tri-factorization (scikit-fusion) 
-* tensorial Independent Component Analysis (tICA)
+* [iCluster](https://cran.r-project.org/web/packages/iCluster/index.html)
+* [Integrative NMF (intNMF)](https://cran.r-project.org/web/packages/IntNMF/index.html) 
+* [Joint and individual variation explained (JIVE)](https://cran.r-project.org/web/packages/r.jive/index.html) 
+* [Multiple co-inertia analysis (MCIA)](https://bioconductor.org/packages/release/bioc/html/omicade4.html) 
+* [Multi-Omics Factor Analysis (MOFA)](https://github.com/bioFAM/MOFA)
+* [Multi-Study Factor Analysis (MSFA)](https://github.com/rdevito/MSFA) 
+* [Regularized Generalized Canonical Correlation Analysis (RGCCA)](https://cran.r-project.org/web/packages/RGCCA/index.html) 
+* [matrix-tri-factorization (scikit-fusion)](https://github.com/marinkaz/scikit-fusion) 
+* [tensorial Independent Component Analysis (tICA)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1455-8)
 
 Please note that due to long running time, MSFA is not executed by default.
 
