@@ -1,4 +1,4 @@
-# Multi-Omics MIX 
+# Multi-Omics MIX (MOMIX)
 ## Benchmark of multi-omics joint Dimensionality Reduction (jDR) approaches in cancer study
 
 ![image](https://drive.google.com/uc?export=view&id=11MC0sJ3rPvqZcoaBfudZ5X-A32OPU1iM)
