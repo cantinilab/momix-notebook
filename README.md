@@ -1,7 +1,7 @@
 # Multi-Omics MIX 
 ## Benchmark of multi-omics joint Dimensionality Reduction (jDR) approaches in cancer study
 
-![image](https://drive.google.com/uc?export=view&id=1UUvKr6KqzVrXhY-MFsgn1julBf6cSQuL)
+![image](https://drive.google.com/uc?export=view&id=11MC0sJ3rPvqZcoaBfudZ5X-A32OPU1iM)
 
 We here extensively benchmark 9 representative jDR approaches in three contexts: 
 1. samples clustering from multi-omics simulated data
