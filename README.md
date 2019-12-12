@@ -22,9 +22,9 @@ The benchmarked methods are:
 Please note that due to long running time, MSFA is not executed by default.
 
 Each of the three sub-benchmarks above corresponds to a differnet Jupyter notebook in this repositiory:
-1. 'Comparison in simulated data.ipynb'
-2. 'Comparison in cancer data.ipynb'
-3. 'Comparison in single-cell data.ipynb'
+1. `Comparison in simulated data.ipynb`
+2. `Comparison in cancer data.ipynb`
+3. `Comparison in single-cell data.ipynb`
 
 ## Input data
 
@@ -41,11 +41,15 @@ For running 2. also annotations from MSigDB are required and a download script i
 
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
  * create a new environment: `conda create -n momix -c conda-forge -c bioconda -c lcantini momix r-irkernel`
-* download annotations and data with the two provided shell scripts (should work on linux and OSX):
- `./download-annotations.sh` and `./download-data.sh`.
-
 
 ## Run the notebooks
 
 * Enter the conda environment: `conda activate momix`.
 * Launch the notebook with `jupyter-notebook`.
+
+## Compare the jDR methods on new data
+* If the inputs are bulk multi-omics data then run the 'Comparison in cancer data.ipynb' notebook changing the folder where to access the input data from `data/cancer` to `data/folder_new_data`.
+* If the inputs are single-cell multi-omics data  then run the 'Comparison in single-cell data.ipynb' notebook changing the folder where to access the input data from `data/single-cell` to `data/folder_new_data`. 
+
+##  Compare a new jDR method in respect to the state-of-the-art
+Add the commans to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
