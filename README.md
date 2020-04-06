@@ -43,6 +43,10 @@ For running 2. also annotations from MSigDB are required and a download script i
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
  * create a new environment: `conda create -n momix -c conda-forge -c bioconda -c lcantini momix r-irkernel`
 
+### Reported istallation issue:
+If you get an error concerning the package "GenomeInfoDbData" repeat its istallation separately with: 
+`conda install -c bioconda/label/gcc7 bioconductor-genomeinfodbdata`
+
 ## Run the notebooks
 
 * Enter the conda environment: `conda activate momix`.
