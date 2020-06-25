@@ -58,3 +58,7 @@ If you get an error concerning the package "GenomeInfoDbData" repeat its istalla
 
 ##  Compare a new jDR method in respect to the state-of-the-art
 Add the commans to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
+
+##  Cite momix
+The preprint describing momix is available in BioRxiv
+https://www.biorxiv.org/content/10.1101/2020.01.14.905760v1
