@@ -52,11 +52,26 @@ If you get an error concerning the package "GenomeInfoDbData" repeat its istalla
 * Enter the conda environment: `conda activate momix`.
 * Launch the notebook with `jupyter-notebook`.
 
-## Compare the jDR methods on new data
+## Extracting biological infomration form the jDR factorization
+As described in the Results of our work (https://www.biorxiv.org/content/10.1101/2020.01.14.905760v1) The jDR factorization will decompose the P omics matrices into a product of a single factor matrix F and multiple weight/projection matrices Ai, i=1...P. Starting from the factorization, (i) we can cluster samples based on the jDR output; (ii) we can describe the pathways/biological functions associated to the various factors and (iii) we can extract features representative of the various factors.
+
+### Clustering of samples based on the jDR output
+To cluster samples based on the jDR output a clustering algorithm should be applied to the factor matrix F. For example, in our notebook `Comparison in simulated data.ipynb` k-means clustering with consensus has been applied to the factor matrix in order to compare the clustering obtained by different jDRs.
+
+### Find pathways/biological functions assocuated to the jDR factors
+To find the pathways associated to the various jDR factors the columns of the matrix A1 (corresponding to tyranscriptomics data) should be employed. Such columns correspond to rankings of genes and by applying Preranked GSEA the enrichment of such columns in repsect to collected pathways/biological functions (REACTOME, GO) can be tested. In our experiments, in the notebook `Comparison in cancer data.ipynb` we used the fgsea package to perform such test.
+
+## Extract features representative of the various factors
+For each factor j, features (genes, CpGs, proteins, miRNAs) representative of such factor can be extracted. To extract such features the top contributing genes in the matrices Ai column j should be idnetified. With such aim the distribution of the weights should be studied and the fat-tail (corresponding to those features taht are more strongly contributing to factor j) should be extracted.
+
+Of note, once features for factor j are extracted they can be used to recognise the activity of such factor on an independent dataset.
+
+## Extensions of the notebook to new data and/or new methods
+### Compare the jDR methods on new data
 * If the inputs are bulk multi-omics data then run the 'Comparison in cancer data.ipynb' notebook changing the folder where to access the input data from `data/cancer` to `data/folder_new_data`.
 * If the inputs are single-cell multi-omics data  then run the 'Comparison in single-cell data.ipynb' notebook changing the folder where to access the input data from `data/single-cell` to `data/folder_new_data`. 
 
-##  Compare a new jDR method in respect to the state-of-the-art
+###  Compare a new jDR method in respect to the state-of-the-art
 Add the commans to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
 
 ##  Cite momix
