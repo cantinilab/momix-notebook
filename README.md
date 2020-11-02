@@ -77,3 +77,5 @@ Add the commans to run the new algorithm in the end of the function `scripts/ran
 ##  Cite momix
 The preprint describing momix is available in BioRxiv
 https://www.biorxiv.org/content/10.1101/2020.01.14.905760v1
+
+[![DOI](https://zenodo.org/badge/188984604.svg)](https://zenodo.org/badge/latestdoi/188984604)
