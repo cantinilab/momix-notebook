@@ -78,5 +78,5 @@ Of note, once features for factor j are extracted they can be used to recognise 
 Add the commans to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
 
 ##  Cite momix
-The preprint describing momix is available in BioRxiv
-https://www.biorxiv.org/content/10.1101/2020.01.14.905760v1
+To cite the work and for a more complete description of the methods and analyses, check:
+Cantini, L., Zakeri, P., Hernandez, C. et al. Benchmarking joint multi-omics dimensionality reduction approaches for the study of cancer. Nat Commun 12, 124 (2021). https://doi.org/10.1038/s41467-020-20430-7
