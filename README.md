@@ -75,7 +75,7 @@ Of note, once features for factor j are extracted they can be used to recognise 
 * If the inputs are single-cell multi-omics data  then run the 'Comparison in single-cell data.ipynb' notebook changing the folder where to access the input data from `data/single-cell` to `data/folder_new_data`. 
 
 ###  Compare a new jDR method in respect to the state-of-the-art
-Add the commans to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
+Add the commands to run the new algorithm in the end of the function `scripts/ranfactorization.R`. In this case the output of that function will have to contain the name of the new added method, the factors obtained with the method and the list of weight matrices obtained with the new method.
 
 ##  Cite momix
 To cite the work and for a more complete description of the methods and analyses, check:
