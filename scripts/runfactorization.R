@@ -59,7 +59,7 @@ runfactorization <- function(folder,file.names,num.factors,sep=" ",filtering="no
       w<-which(!is.na(m))
       omics[[j]]<-omics[[j]][w,]
     }else{
-      omics[[j]]<-omics[[j]][which(apply(omics[[j]],2,sd)>0),]
+      omics[[j]]<-omics[[j]][,which(apply(omics[[j]],2,sd)>0)]
     }
   }  
   
