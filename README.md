@@ -43,6 +43,15 @@ For running 2. also annotations from MSigDB are required and a download script i
 
 ## Install the software environment
 
+---
+
+### UPDATE: 14/11/2023
+
+Some users have reported issues in recreating the conda environment due to conflict between package version.
+If you encounter problems during installation, please refer to [this bash script](momix_env.sh) that recreates all the dependency tree manually and to [this thread on Issues](https://github.com/cantinilab/momix-notebook/issues/9) for further information.
+
+---
+
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
  * create a new environment: `conda create -n momix -c conda-forge -c bioconda -c lcantini momix r-irkernel`
 
